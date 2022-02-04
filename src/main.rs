@@ -14,7 +14,7 @@ fn main() {
 
     let target : u32 = args[1].parse().unwrap();
 
-    for target in 3..target {
+    for target in 3..(target+1) {
 
     let mut target_set : Vec<u32> = Vec::new();
 
@@ -28,11 +28,30 @@ fn main() {
 
     let mut ctr : usize = 0;
 
-    let mut test : u32 = 1;
+    let mut test : u64 = 1;
 
     let mut state : usize = 0;
 
     let prime_list = prime_tools::get_primes_less_than_x(target+1);
+
+    // for i in prime_list {
+    //     test *= i;
+    // }
+
+    // let n = target;
+
+    // if target%2 != 0 {
+    //     test *=  (target - target%2)/2;
+    // } else {
+    //     test *= n-(n-2)%2;
+    // }
+
+    // if target%3 != 0 {
+    //     test *=  (target - target%3)/3;
+    // } else {
+    //     test *= n-(n-3)%3;
+    // }
+
 
     for i in &target_set {
         let primes_with_counts = prime_tools::get_prime_factors_with_counts(*i,&prime_list);
@@ -47,7 +66,7 @@ fn main() {
 
     for i in the_set {
         let parts : Vec<&str> = i.split("_").collect();
-        let factor : u32 = parts[0].parse().unwrap();
+        let factor : u64 = parts[0].parse().unwrap();
         test *= factor;
     }
 
@@ -64,7 +83,8 @@ fn main() {
     // println!("Target {} Got: {}",target,test);
 
     for i in 1..(target+1) {
-        if test % i != 0 {
+        let j : u64 = i.try_into().unwrap();
+        if test % j != 0 {
             println!("Not divisible by {}", i);
         }
     }
